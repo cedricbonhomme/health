@@ -56,8 +56,8 @@ def plot(heart_activity):
 
     current_date = heart_activity["activities-heart"][0]["dateTime"]
     plt.suptitle(current_date, fontsize=20)
-    plt.xlabel('Heart rate (BPM)', fontsize=18)
-    plt.ylabel('Time', fontsize=16)
+    plt.xlabel('Time', fontsize=18)
+    plt.ylabel('Heart rate (BPM)', fontsize=16)
     plt.subplots_adjust(bottom=0.2)
     plt.xticks(rotation=90)
 
