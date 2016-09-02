@@ -70,6 +70,7 @@ def plot(heart_activity):
     plt.savefig(current_date+'-heart.png', dpi=400, bbox_inches='tight')
     #plt.show()
     plt.clf()
+    plt.cla() # clear axis
 
 
 if __name__ == "__main__":
@@ -77,7 +78,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    for i in range(3):
+    for i in range(10):
         heart_activity = \
                 get_intraday_time_series(today - datetime.timedelta(days=i))
         plot(heart_activity)
