@@ -7,10 +7,13 @@ import matplotlib.dates as md
 import dateutil
 import datetime
 
-CLIENT_KEY = ""
-CLIENT_SECRET = ""
-ACCESS_TOKEN = ""
-REFRESH_TOKEN = ""
+import configparser as confparser
+config = confparser.SafeConfigParser()
+config.read("conf.cfg")
+CLIENT_KEY = config.get('oauth', 'CLIENT_KEY')
+CLIENT_SECRET = config.get('oauth', 'CLIENT_SECRET')
+ACCESS_TOKEN = config.get('oauth', 'ACCESS_TOKEN')
+REFRESH_TOKEN = config.get('oauth', 'REFRESH_TOKEN')
 
 client_kwargs = {
         'client_id': CLIENT_KEY,
@@ -51,6 +54,7 @@ def plot(heart_activity):
     ax = fig.add_subplot(111)
     ax.set_xticks(dates_x)
     ax.xaxis.grid(True)
+    ax.yaxis.grid(True)
     xfmt = md.DateFormatter('%H:%M')
     ax.xaxis.set_major_formatter(xfmt)
 
@@ -63,7 +67,7 @@ def plot(heart_activity):
 
     plt.plot(dates_x, beats_y_less, "o-")
 
-    plt.savefig(current_date+'-heart.png', dpi=300, bbox_inches='tight')
+    plt.savefig(current_date+'-heart.png', dpi=400, bbox_inches='tight')
     #plt.show()
     plt.clf()
 
@@ -73,7 +77,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    for i in range(10):
+    for i in range(3):
         heart_activity = \
                 get_intraday_time_series(today - datetime.timedelta(days=i))
         plot(heart_activity)
