@@ -78,7 +78,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    for i in range(10):
+    for i in range(5):
         heart_activity = \
                 get_intraday_time_series(today - datetime.timedelta(days=i))
         plot(heart_activity)
