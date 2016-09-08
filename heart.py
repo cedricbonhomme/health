@@ -50,7 +50,7 @@ def plot(heart_activity):
 
     dates_x = [dateutil.parser.parse(s) for s in dates_x_less]
 
-    fig = plt.figure(figsize=(30, 5), dpi = 400, edgecolor='k')
+    fig = plt.figure(figsize=(28, 5), dpi = 400, edgecolor='k')
     ax = fig.add_subplot(111)
     ax.set_xticks(dates_x)
     ax.xaxis.grid(True)
@@ -71,6 +71,7 @@ def plot(heart_activity):
     #plt.show()
     plt.clf()
     plt.cla() # clear axis
+    del fig
 
 
 if __name__ == "__main__":
@@ -78,7 +79,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    for i in range(5):
+    for i in range(15):
         heart_activity = \
                 get_intraday_time_series(today - datetime.timedelta(days=i))
         plot(heart_activity)
