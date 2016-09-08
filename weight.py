@@ -32,7 +32,7 @@ fb_client = fitbit.Fitbit(CLIENT_KEY, CLIENT_SECRET,
 
 def get_bodyweight(base_date, end_date=None):
     """
-    Return the heart activity.
+    Return data about the body weight.
     """
     weight = fb_client.get_bodyweight(base_date=base_date, end_date=end_date)
     return weight
