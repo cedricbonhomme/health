@@ -12,21 +12,9 @@ import conf
 import models
 from bootstrap import Base, session
 
-client_kwargs = {
-        'client_id': conf.CLIENT_KEY,
-        'client_secret': conf.CLIENT_SECRET,
-        'callback_uri': 'https://dev.fitbit.com',
-        'scope': ['sleep+settings+nutrition+activity+social+heartrate+profile+weight+location']
-}
-
-# fb = fitbit.Fitbit(**client_kwargs)
-# retval = fb.client.authorize_token_url()
-# print(retval)
-
 authd_client = fitbit.Fitbit(conf.CLIENT_KEY, conf.CLIENT_SECRET,
                                 access_token=conf.ACCESS_TOKEN,
                                 refresh_token=conf.REFRESH_TOKEN)
-
 
 def get_intraday_time_series(date, detail_level='1min'):
     """

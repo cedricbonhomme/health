@@ -7,14 +7,14 @@ Retrieve, store and plot your Fitbit data.
 ### Register a new Fitbit app
 
 Register a new app [here](https://dev.fitbit.com/apps) and
-provide your oauth credentials in the file **conf.cfg**.
+provide your oauth credentials in the file *conf.cfg*.
 
 ### Database configuration
 
 Create a new database (SQLite, MySQL, PostgreSQL) for this application and
-configure the connection to this new database in the file **conf.cfg** with:
+configure the connection to this new database in the file *conf.cfg* with:
 
-* the kind of the database (for example **postgres**);
+* the kind of the database (for example *postgres*);
 * the database user name and password;
 * the database address and port;
 * the database name.
