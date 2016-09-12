@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as md
 import dateutil
 import datetime
+from sqlalchemy.exc import IntegrityError
 
 import conf
 import models
@@ -43,7 +44,11 @@ def insert_database(heart_activity):
 
         new_bpm = models.Heart(value=value, date=date)
         session.add(new_bpm)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError as e:
+        session.rollback()
+        pass
 
 def plot():
     beats = session.query(models.Heart).filter().all()

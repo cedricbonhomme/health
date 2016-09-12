@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as md
 import dateutil
 import datetime
+from sqlalchemy.exc import IntegrityError
 
 import conf
 import models
@@ -36,7 +37,12 @@ def insert_database(weight):
 
         new_weight = models.Weight(value=weight, date=date)
         session.add(new_weight)
-    session.commit()
+    try:
+        session.commit()
+    except IntegrityError as e:
+        session.rollback()
+        pass
+
 
 def plot():
     weight = session.query(models.Weight).filter().all()
