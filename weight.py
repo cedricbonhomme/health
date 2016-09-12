@@ -7,27 +7,19 @@ import matplotlib.dates as md
 import dateutil
 import datetime
 
-import configparser as confparser
-config = confparser.SafeConfigParser()
-config.read("conf.cfg")
-CLIENT_KEY = config.get('oauth', 'CLIENT_KEY')
-CLIENT_SECRET = config.get('oauth', 'CLIENT_SECRET')
-ACCESS_TOKEN = config.get('oauth', 'ACCESS_TOKEN')
-REFRESH_TOKEN = config.get('oauth', 'REFRESH_TOKEN')
+import conf
+import models
+from bootstrap import Base, session
 
 client_kwargs = {
-        'client_id': CLIENT_KEY,
-        'client_secret': CLIENT_SECRET,
+        'client_id': conf.CLIENT_KEY,
+        'client_secret': conf.CLIENT_SECRET,
         'callback_uri': 'https://dev.fitbit.com',
         'scope': ['sleep+settings+nutrition+activity+social+heartrate+profile+weight+location']
 }
 
-# fb = fitbit.Fitbit(**client_kwargs)
-# retval = fb.client.authorize_token_url()
-# print(retval)
-
-fb_client = fitbit.Fitbit(CLIENT_KEY, CLIENT_SECRET,
-                        access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+fb_client = fitbit.Fitbit(conf.CLIENT_KEY, conf.CLIENT_SECRET,
+                        access_token=conf.ACCESS_TOKEN, refresh_token=conf.REFRESH_TOKEN)
 
 
 def get_bodyweight(base_date, end_date=None):
@@ -37,12 +29,21 @@ def get_bodyweight(base_date, end_date=None):
     weight = fb_client.get_bodyweight(base_date=base_date, end_date=end_date)
     return weight
 
+def insert_database(weight):
+    for elem in weight["weight"]:
+        date = dateutil.parser.parse(elem["date"])
+        weight = float(elem["weight"])/2.204
 
-def plot(weight):
-    dates_x = [elem["date"] for elem in weight["weight"]]
-    weight_y = [float(elem["weight"])/2.204 for elem in weight["weight"]]
+        new_weight = models.Weight(value=weight, date=date)
+        session.add(new_weight)
+    session.commit()
 
-    dates_x = [dateutil.parser.parse(s) for s in dates_x]
+def plot():
+    weight = session.query(models.Weight).filter().all()
+    dates_x = [elem.date for elem in weight]
+    weight_y = [float(elem.value)/2.204 for elem in weight]
+
+    #dates_x = [dateutil.parser.parse(s) for s in dates_x]
 
     fig = plt.figure(figsize=(20, 5), dpi = 400, edgecolor='k')
     ax = fig.add_subplot(111)
@@ -72,11 +73,14 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    weight = get_bodyweight(today - datetime.timedelta(days=30), today)
-    print(weight)
-    plot(weight)
-    """
-    for i in range(1):
+    print("Retrieve data about the weight...")
+    weight = get_bodyweight(today - datetime.timedelta(days=31), today)
+    """for i in range(5):
         weight = get_bodyweight(today - datetime.timedelta(days=i))
-        #plot(weight)
         print(weight)"""
+
+    print("Database insertion...")
+    insert_database(weight)
+
+    print("Generation of the graph")
+    plot() # plot the evolution of the weight with data from the database

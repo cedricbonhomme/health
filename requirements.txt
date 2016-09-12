@@ -1,3 +1,5 @@
 fitbit
+manage.py
+SQLAlchemy
 CherryPy
 matplotlib
