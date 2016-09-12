@@ -22,15 +22,9 @@ client_kwargs = {
 client_kwargs['access_token'] = ACCESS_TOKEN
 client_kwargs['refresh_token'] = REFRESH_TOKEN
 
+fb = fitbit.Fitbit(CLIENT_KEY, CLIENT_SECRET, oauth2=True,
+                    access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
 
-
-fb = fitbit.Fitbit(CLIENT_KEY, CLIENT_SECRET, oauth2=True, access_token='', refresh_token=REFRESH_TOKEN)
-
-print(dir(fb.client))
-fb.client.refresh_token()
-
-
-
-print(fb.client.token['access_token'])
+#print(fb.client.token['access_token'])
 retval = fb.client.refresh_token()
 #print(retval)
