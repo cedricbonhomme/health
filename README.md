@@ -4,13 +4,31 @@ Retrieve, store and plot your Fitbit data.
 
 ## Usage
 
-* register a new app [here](https://dev.fitbit.com/apps);
-* provide your oauth credentials in the file **conf.cfg**;
-* configure the database connection in the file **conf.cfg**.
+### Register a new Fitbit app
+
+Register a new app [here](https://dev.fitbit.com/apps) and
+provide your oauth credentials in the file **conf.cfg**.
+
+### Database configuration
+
+Create a new database (SQLite, MySQL, PostgreSQL) for this application and
+configure the connection to this new database in the file **conf.cfg** with:
+
+* the kind of the database (for example **postgres**);
+* the database user name and password;
+* the database address and port;
+* the database name.
+
+For example:
+
+```ini
+database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/health
+```
+
+
+### Retrieve the data
 
 ```shell
-$ cp conf.cfg-sample conf.cfg
-
 $ ./create_db.sh
 ALTER ROLE
 GRANT
