@@ -25,15 +25,18 @@ For example:
 database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/health
 ```
 
-
-### Retrieve the data
+Then create and initialize the database:
 
 ```shell
 $ ./create_db.sh
 ALTER ROLE
 GRANT
 $ python3.5 cmd.py db_create
+```
 
+### Retrieve the data
+
+```bash
 $ python3.5 weight.py
 Retrieve data about the weight...
 Database insertion...
