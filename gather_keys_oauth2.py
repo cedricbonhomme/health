@@ -30,8 +30,6 @@ class OAuth2Server:
         server to accept the response
         """
         url, _ = self.oauth.authorize_token_url(redirect_uri=self.redirect_uri)
-        print(url)
-        url = "https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=227ST6&redirect_uri="+self.redirect_uri+"&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800"
         # Open the web browser in a new thread for command-line browser support
         threading.Timer(1, webbrowser.open, args=(url,)).start()
         cherrypy.quickstart(self)
