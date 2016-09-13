@@ -7,6 +7,7 @@ import matplotlib.dates as md
 import dateutil
 import datetime
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.sql.expression import Extract
 
 import conf
 import models
@@ -26,20 +27,24 @@ def get_intraday_time_series(date, detail_level='1min'):
     return heart_activity
 
 def insert_database(heart_activity):
+    day = dateutil.parser.parse(heart_activity["activities-heart"][0]["dateTime"])
     for elem in heart_activity["activities-heart-intraday"]["dataset"]:
-        date = dateutil.parser.parse(elem["time"])
+        date = datetime.datetime.combine(day,
+                                    dateutil.parser.parse(elem["time"]).time())
         value = float(elem["value"])
 
         new_bpm = models.Heart(value=value, date=date)
         session.add(new_bpm)
-    try:
-        session.commit()
-    except IntegrityError as e:
-        session.rollback()
-        pass
+        try:
+            session.commit()
+        except IntegrityError as e:
+            session.rollback()
+            pass
 
-def plot():
-    beats = session.query(models.Heart).filter().all()
+def plot(day):
+
+    beats = session.query(models.Heart).filter(
+                Extract('day', models.Heart.date) == Extract('day', day)).all()
     dates_x = [elem.date for elem in beats]
     beats_y = [elem.value for elem in beats]
 
@@ -73,15 +78,16 @@ def plot():
 if __name__ == "__main__":
 
     today = datetime.datetime.now()
-    yesterday = today - datetime.timedelta(days=1)
+    yesterday = today - datetime.timedelta(days=2)
 
-    for i in range(1):
+    for i in range(3):
         print("Retrieve data about the heart rate...")
+        day = today - datetime.timedelta(days=i)
         heart_activity = \
-                get_intraday_time_series(today - datetime.timedelta(days=i))
+                get_intraday_time_series(day)
 
         print("Database insertion...")
         insert_database(heart_activity)
 
         print("Generation of the graph...")
-        plot()
+        plot(day)
