@@ -3,28 +3,42 @@
 
 import fitbit
 
-import configparser as confparser
-config = confparser.SafeConfigParser()
-config.read("conf.cfg")
-CLIENT_KEY = config.get('oauth', 'CLIENT_KEY')
-CLIENT_SECRET = config.get('oauth', 'CLIENT_SECRET')
-ACCESS_TOKEN = config.get('oauth', 'ACCESS_TOKEN')
-REFRESH_TOKEN = config.get('oauth', 'REFRESH_TOKEN')
+import conf
 
+"""
 ACCESS_REFRESH_TOKEN_URI = "https://api.fitbit.com/oauth2/token"
 
 client_kwargs = {
-        'client_id': CLIENT_KEY,
-        'client_secret': CLIENT_SECRET,
-        'callback_uri': 'https://dev.fitbit.com',
+        'client_id': conf.CLIENT_KEY,
+        'client_secret': conf.CLIENT_SECRET,
+        'callback_uri': 'http://dev.fitbit.com',
         'scope': ['sleep+settings+nutrition+activity+social+heartrate+profile+weight+location']
 }
-client_kwargs['access_token'] = ACCESS_TOKEN
-client_kwargs['refresh_token'] = REFRESH_TOKEN
+client_kwargs['access_token'] = conf.ACCESS_TOKEN
+client_kwargs['refresh_token'] = conf.REFRESH_TOKEN
 
-fb = fitbit.Fitbit(CLIENT_KEY, CLIENT_SECRET, oauth2=True,
-                    access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+fb = fitbit.Fitbit(conf.CLIENT_KEY, conf.CLIENT_SECRET, oauth2=True,
+                    access_token=conf.ACCESS_TOKEN,
+                    refresh_token=conf.REFRESH_TOKEN)
 
 #print(fb.client.token['access_token'])
 retval = fb.client.refresh_token()
-#print(retval)
+print(retval)
+"""
+
+
+userid = conf.CLIENT_KEY
+REFRESH_TOKEN = conf.REFRESH_TOKEN
+ACCESS_TOKEN = conf.ACCESS_TOKEN
+
+authd_client = fitbit.Fitbit(conf.CLIENT_KEY, conf.CLIENT_SECRET, oauth2=True,
+                        access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+
+mystring = str(authd_client.client.refresh_token())
+REFRESH_TOKEN = authd_client.client.token['refresh_token']
+ACCESS_TOKEN = authd_client.client.token['access_token']
+user_id = authd_client.client.token['user_id']
+#print (authd_client.client.token['refresh_token'])
+print(REFRESH_TOKEN)
+print(ACCESS_TOKEN)
+print(authd_client)
