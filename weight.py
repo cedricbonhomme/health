@@ -37,11 +37,11 @@ def insert_database(weight):
 
         new_weight = models.Weight(value=weight, date=date)
         session.add(new_weight)
-    try:
-        session.commit()
-    except IntegrityError as e:
-        session.rollback()
-        pass
+        try:
+            session.commit()
+        except IntegrityError as e:
+            session.rollback()
+            pass
 
 
 def plot():
