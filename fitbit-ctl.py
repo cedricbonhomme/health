@@ -4,17 +4,20 @@
 import dateutil
 import datetime
 from manager import Manager
-from bootstrap import Base
+from bootstrap import Base, engine
 
 import models
 import scripts
 
 manager = Manager()
 
+@manager.prompt('reinitialize', message='reinitialize the database (yes/no) ?')
 @manager.command
-def db_initialize():
+def db_initialize(reinitialize='no'):
     "Initialize the database from conf parameters."
-    Base.metadata.create_all()
+    if reinitialize.lower() == 'yes':
+        models.db_empty(engine)
+        Base.metadata.create_all()
 
 @manager.arg('nb_days_from_now', help='The number of days to retrieve from today', type=int)
 @manager.command

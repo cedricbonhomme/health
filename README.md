@@ -32,6 +32,7 @@ $ ./create_db.sh
 ALTER ROLE
 GRANT
 $ ./fitbit-ctl.py db_initialize
+reinitialize the database (yes/no) ? (default: no)  : yes
 ```
 
 ### Retrieve the data
@@ -53,8 +54,11 @@ Retrieving the heart rate for September 10, 2016...
 $ ./fitbit-ctl.py plot_heart 2016-09-12
 Generation of the graph...
 $ gwenview 2016-09-12_heart.png
+```
 
+#### Help command
 
+```bash
 $ ./fitbit-ctl.py -h
 usage: fitbit-ctl.py <command> [<args>]
 
