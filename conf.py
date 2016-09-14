@@ -5,7 +5,7 @@ import configparser as confparser
 
 config = confparser.SafeConfigParser()
 
-config.read("conf.cfg")
+config.read("./conf/conf.cfg")
 
 CLIENT_KEY = config.get('oauth', 'CLIENT_KEY')
 CLIENT_SECRET = config.get('oauth', 'CLIENT_SECRET')

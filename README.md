@@ -31,23 +31,45 @@ Then create and initialize the database:
 $ ./create_db.sh
 ALTER ROLE
 GRANT
-$ python3.5 cmd.py db_create
+$ ./fitbit-ctl.py db_initialize
 ```
 
 ### Retrieve the data
 
 ```bash
-$ python3.5 weight.py
+$ ./fitbit-ctl.py retrieve_weight 31
 Retrieving the weight...
-Database insertion...
+$ ./fitbit-ctl.py plot_weight
 Generation of the graph...
 $ gwenview weight.png
 
-$ python3.5 heart.py
-Retrieving the heart rate for September 06, 2016...
-Database insertion...
+
+$ ./fitbit-ctl.py retrieve_heart 5
+Retrieving the heart rate for September 14, 2016...
+Retrieving the heart rate for September 13, 2016...
+Retrieving the heart rate for September 12, 2016...
+Retrieving the heart rate for September 11, 2016...
+Retrieving the heart rate for September 10, 2016...
+$ ./fitbit-ctl.py plot_heart 2016-09-12
 Generation of the graph...
-$ gwenview 2016-09-12-heart.png
+$ gwenview 2016-09-12_heart.png
+
+
+$ ./fitbit-ctl.py -h
+usage: fitbit-ctl.py <command> [<args>]
+
+positional arguments:
+  command     the command to run
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+available commands:
+  db_initialize            Initialize the database from conf parameters.
+  plot_heart               Plot the data about the heart.
+  plot_weight              Plot the data about the weight.
+  retrieve_heart           Retrieve the data about the heart.
+  retrieve_weight          Retrieve the data about the weight.
 ```
 
 
