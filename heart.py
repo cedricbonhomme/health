@@ -59,7 +59,7 @@ def plot(day):
     xfmt = md.DateFormatter('%H:%M')
     ax.xaxis.set_major_formatter(xfmt)
 
-    current_date = heart_activity["activities-heart"][0]["dateTime"]
+    current_date = day.strftime("%B %d, %Y")
     plt.suptitle(current_date, fontsize=20)
     plt.xlabel('Time', fontsize=18)
     plt.ylabel('Heart rate (BPM)', fontsize=16)
@@ -68,7 +68,8 @@ def plot(day):
 
     plt.plot(dates_x_less, beats_y_less, "o-")
 
-    plt.savefig(current_date+'-heart.png', dpi=400, bbox_inches='tight')
+    plt.savefig(day.strftime("%Y-%m-%d")+'_heart.png', dpi=400,
+                bbox_inches='tight')
     #plt.show()
     plt.clf()
     plt.cla() # clear axis
@@ -80,14 +81,14 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=2)
 
-    for i in range(30):
-        print("Retrieve data about the heart rate...")
+    for i in range(5):
         day = today - datetime.timedelta(days=i)
+        print('Retrieving the heart rate for {:%B %d, %Y}...'.format(day))
         heart_activity = \
                 get_intraday_time_series(day)
 
-        print("Database insertion...")
+        print('Database insertion...')
         insert_database(heart_activity)
 
-        print("Generation of the graph...")
+        print('Generation of the graph...')
         plot(day)

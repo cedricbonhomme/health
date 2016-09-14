@@ -79,14 +79,11 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
 
-    print("Retrieve data about the weight...")
+    print('Retrieving the weight...')
     weight = get_bodyweight(today - datetime.timedelta(days=31), today)
-    """for i in range(5):
-        weight = get_bodyweight(today - datetime.timedelta(days=i))
-        print(weight)"""
 
-    print("Database insertion...")
+    print('Database insertion...')
     insert_database(weight)
 
-    print("Generation of the graph")
+    print('Generation of the graph')
     plot() # plot the evolution of the weight with data from the database
