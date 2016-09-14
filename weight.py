@@ -22,7 +22,6 @@ client_kwargs = {
 fb_client = fitbit.Fitbit(conf.CLIENT_KEY, conf.CLIENT_SECRET,
                         access_token=conf.ACCESS_TOKEN, refresh_token=conf.REFRESH_TOKEN)
 
-
 def get_bodyweight(base_date, end_date=None):
     """
     Return data about the body weight.
@@ -43,13 +42,10 @@ def insert_database(weight):
             session.rollback()
             pass
 
-
 def plot():
     weight = session.query(models.Weight).filter().all()
     dates_x = [elem.date for elem in weight]
     weight_y = [elem.value for elem in weight]
-
-    #dates_x = [dateutil.parser.parse(s) for s in dates_x]
 
     fig = plt.figure(figsize=(20, 5), dpi = 400, edgecolor='k')
     ax = fig.add_subplot(111)

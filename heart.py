@@ -42,7 +42,6 @@ def insert_database(heart_activity):
             pass
 
 def plot(day):
-
     beats = session.query(models.Heart).filter(
                 Extract('day', models.Heart.date) == Extract('day', day)).all()
     dates_x = [elem.date for elem in beats]
