@@ -33,7 +33,7 @@ def get_bodyweight(base_date, end_date=None):
 def insert_database(weight):
     for elem in weight["weight"]:
         date = dateutil.parser.parse(elem["date"])
-        weight = float(elem["weight"])/2.204
+        weight = float(elem["weight"]) / 2.204
 
         new_weight = models.Weight(value=weight, date=date)
         session.add(new_weight)
@@ -47,7 +47,7 @@ def insert_database(weight):
 def plot():
     weight = session.query(models.Weight).filter().all()
     dates_x = [elem.date for elem in weight]
-    weight_y = [float(elem.value)/2.204 for elem in weight]
+    weight_y = [elem.value for elem in weight]
 
     #dates_x = [dateutil.parser.parse(s) for s in dates_x]
 

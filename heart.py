@@ -80,7 +80,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=2)
 
-    for i in range(3):
+    for i in range(30):
         print("Retrieve data about the heart rate...")
         day = today - datetime.timedelta(days=i)
         heart_activity = \
