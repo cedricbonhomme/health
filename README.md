@@ -37,14 +37,9 @@ reinitialize the database (yes/no) ? (default: no)  : yes
 
 ### Retrieve the data
 
+#### Heart
+
 ```bash
-$ ./fitbit-ctl.py retrieve_weight 31
-Retrieving the weight...
-$ ./fitbit-ctl.py plot_weight
-Generation of the graph...
-$ gwenview weight.png
-
-
 $ ./fitbit-ctl.py retrieve_heart 5
 Retrieving the heart rate for September 14, 2016...
 Retrieving the heart rate for September 13, 2016...
@@ -54,6 +49,16 @@ Retrieving the heart rate for September 10, 2016...
 $ ./fitbit-ctl.py plot_heart 2016-09-12
 Generation of the graph...
 $ gwenview 2016-09-12_heart.png
+```
+
+#### Weight
+
+```bash
+$ ./fitbit-ctl.py retrieve_weight 31
+Retrieving the weight...
+$ ./fitbit-ctl.py plot_weight
+Generation of the graph...
+$ gwenview weight.png
 ```
 
 #### Help command
