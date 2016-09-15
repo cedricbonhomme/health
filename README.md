@@ -19,9 +19,28 @@ configure the connection to this new database in the file *conf.cfg* with:
 * the database address and port;
 * the database name.
 
-For example:
+#### Example with SQLite
+
+Configure the connection:
 
 ```ini
+$ grep 'database_url' conf/conf.cfg
+database_url = sqlite:///health.db
+```
+
+Then create and initialize the database:
+
+```shell
+$ ./fitbit-ctl.py db_initialize
+reinitialize the database (yes/no) ? (default: no)  : yes
+```
+
+#### Example with PostgreSQL
+
+Configure the connection:
+
+```ini
+$ grep 'database_url' conf/conf.cfg
 database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/health
 ```
 

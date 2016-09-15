@@ -4,4 +4,4 @@ CLIENT_SECRET =
 ACCESS_TOKEN =
 REFRESH_TOKEN =
 [database]
-database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/health
+database_url = sqlite:///health.db
