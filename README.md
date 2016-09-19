@@ -12,7 +12,7 @@ In order to get intra-days values for the heart rate, you should create a
 *Personal* app.  
 The callback URL should be *http://127.0.0.1:8080/*.
 
-To get your *access_token** and *refresh_token*:
+To get your *access_token* and *refresh_token*:
 
 ```shell
 $ python gather_keys_oauth2.py client_id client_secret
