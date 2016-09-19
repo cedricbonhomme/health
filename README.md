@@ -9,6 +9,12 @@ Retrieve, store and plot your Fitbit data.
 Register a new app [here](https://dev.fitbit.com/apps) and
 provide your oauth credentials in the file *conf.cfg*.
 
+To get your *access_token** and *refresh_token*:
+
+```shell
+$ python gather_keys_oauth2.py client_id client_secret
+```
+
 ### Database configuration
 
 Create a new database (SQLite, MySQL, PostgreSQL) for this application and
