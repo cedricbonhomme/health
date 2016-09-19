@@ -7,7 +7,10 @@ Retrieve, store and plot your Fitbit data.
 ### Register a new Fitbit app
 
 Register a new app [here](https://dev.fitbit.com/apps) and
-provide your oauth credentials in the file *conf.cfg*.
+provide your oauth credentials in the file *conf.cfg*.  
+In order to get intra-days values for the heart rate, you should create a
+*Personal* app.  
+The callback URL should be *http://127.0.0.1:8080/*.
 
 To get your *access_token** and *refresh_token*:
 
@@ -17,17 +20,9 @@ $ python gather_keys_oauth2.py client_id client_secret
 
 ### Database configuration
 
-Create a new database (SQLite, MySQL, PostgreSQL) for this application and
-configure the connection to this new database in the file *conf.cfg* with:
-
-* the kind of the database (for example *postgres*);
-* the database user name and password;
-* the database address and port;
-* the database name.
-
 #### Example with SQLite
 
-Configure the connection:
+Configure the connection in the file *conf.cfg*:
 
 ```ini
 $ grep 'database_url' conf/conf.cfg
@@ -43,12 +38,19 @@ reinitialize the database (yes/no) ? (default: no)  : yes
 
 #### Example with PostgreSQL
 
-Configure the connection:
+Create a new PostgreSQL database (or MySQL) for this application and
+configure the connection in the file *conf.cfg*:
 
 ```ini
 $ grep 'database_url' conf/conf.cfg
 database_url = postgres://pgsqluser:pgsqlpwd@127.0.0.1:5432/health
 ```
+
+As you can see the line specifies:
+* the kind of the database (here *postgres*);
+* the database user name and password;
+* the database address and port;
+* the database name.
 
 Then create and initialize the database:
 
@@ -71,6 +73,7 @@ Retrieving the heart rate for September 13, 2016...
 Retrieving the heart rate for September 12, 2016...
 Retrieving the heart rate for September 11, 2016...
 Retrieving the heart rate for September 10, 2016...
+
 $ ./fitbit-ctl.py plot_heart 2016-09-12
 Generation of the graph...
 $ gwenview 2016-09-12_heart.png
@@ -81,6 +84,7 @@ $ gwenview 2016-09-12_heart.png
 ```bash
 $ ./fitbit-ctl.py retrieve_weight 31
 Retrieving the weight...
+
 $ ./fitbit-ctl.py plot_weight
 Generation of the graph...
 $ gwenview weight.png
