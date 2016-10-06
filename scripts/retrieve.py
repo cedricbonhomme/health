@@ -34,7 +34,7 @@ def retrieve_intraday_time_series(date, detail_level='1min'):
             session.rollback()
             pass
 
-def retrieve_bodyweight(base_date, end_date=None):
+def retrieve_bodyweight(base_date, end_date):
     """
     Retrieve data about the body weight.
     """
@@ -44,6 +44,7 @@ def retrieve_bodyweight(base_date, end_date=None):
         weight = float(elem["weight"]) / 2.204
 
         new_weight = models.Weight(value=weight, date=date)
+
         session.add(new_weight)
         try:
             session.commit()

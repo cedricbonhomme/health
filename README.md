@@ -82,7 +82,7 @@ $ gwenview 2016-09-12_heart.png
 #### Weight
 
 ```bash
-$ ./fitbit-ctl.py retrieve_weight 31
+$ ./fitbit-ctl.py retrieve_weight 2016-09-01 2016-09-31
 Retrieving the weight...
 
 $ ./fitbit-ctl.py plot_weight

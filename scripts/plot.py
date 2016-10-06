@@ -4,6 +4,7 @@
 import dateutil
 import matplotlib.pyplot as plt
 import matplotlib.dates as md
+from sqlalchemy.sql import desc
 from sqlalchemy.sql.expression import Extract
 from sqlalchemy import and_
 
@@ -52,7 +53,8 @@ def plot_heart(day):
     del fig
 
 def plot_weight():
-    weight = session.query(models.Weight).filter().all()
+    weight = session.query(models.Weight).order_by(desc(models.Weight.date)).\
+                                            filter().all()
     if not weight:
         print("No data to plot.")
         return
