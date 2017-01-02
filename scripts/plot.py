@@ -66,7 +66,7 @@ def plot_weight():
     ax.set_xticks(dates_x)
     ax.xaxis.grid(True)
     ax.yaxis.grid(True)
-    xfmt = md.DateFormatter('%d-%m')
+    xfmt = md.DateFormatter('%d-%m-%Y')
     ax.xaxis.set_major_formatter(xfmt)
 
     plt.suptitle("Weight evolution", fontsize=20)
