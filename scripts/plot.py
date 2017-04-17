@@ -61,7 +61,7 @@ def plot_weight():
     dates_x = [elem.date for elem in weight]
     weight_y = [elem.value for elem in weight]
 
-    fig = plt.figure(figsize=(28, 5), dpi = 400, edgecolor='k')
+    fig = plt.figure(figsize=(40, 5), dpi = 400, edgecolor='k')
     ax = fig.add_subplot(111)
     ax.set_xticks(dates_x)
     ax.xaxis.grid(True)
